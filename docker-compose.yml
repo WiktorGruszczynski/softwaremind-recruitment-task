@@ -1,25 +1,13 @@
 services:
-  mongo:
-    image: mongo:7.0
-    restart: always
+  cassandra:
+    image: cassandra:5.0.8
+    container_name: cassandra
     ports:
-      - "27017:27017"
+      - "9042:9042"
     environment:
-      MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USER}
-      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD}
+    - CASSANDRA_DC=datacenter1
+    - CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch
+
     volumes:
-      - mongo_data:/data/db
+      - /cassandra_data:/var/lib/cassandra
 
-  mongo-express:
-    image: mongo-express:latest
-    restart: always
-    ports:
-      - "8081:8081"
-    environment:
-      ME_CONFIG_MONGODB_URL: mongodb://${MONGO_ROOT_USER}:${MONGO_ROOT_PASSWORD}@mongo:27017/
-      ME_CONFIG_BASICAUTH_ENABLED: true
-      ME_CONFIG_BASICAUTH_USERNAME: ${MONGO_EXPRESS_LOGIN}
-      ME_CONFIG_BASICAUTH_PASSWORD: ${MONGO_EXPRESS_PASSWORD}
-
-volumes:
-  mongo_data:

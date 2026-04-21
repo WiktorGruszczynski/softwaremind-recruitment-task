@@ -2,6 +2,17 @@ spring:
   application:
     name: backend
 
-  data:
-    mongodb:
-      uri: mongodb://${MONGO_ROOT_USER}:${MONGO_ROOT_PASSWORD}@localhost:27017/product_db?authSource=admin
+  cassandra:
+    contact-points: localhost:9042
+    local-datacenter: datacenter1
+    keyspace-name: auth_keyspace
+    schema-action: create_if_not_exists
+
+server:
+  servlet:
+    context-path: /api
+
+
+logging:
+  level:
+    org.springframework.security: DEBUG
