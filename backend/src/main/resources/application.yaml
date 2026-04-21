@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: backend
+
+  data:
+    mongodb:
+      uri: mongodb://${MONGO_ROOT_USER}:${MONGO_ROOT_PASSWORD}@localhost:27017/product_db?authSource=admin
