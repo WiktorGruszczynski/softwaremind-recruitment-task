@@ -29,11 +29,14 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(NoResourceFoundException.class)
     public ResponseEntity<ErrorResponse> handleNotFoundException(NoResourceFoundException e) {
         log.warn("404 Not Found: {}", e.getMessage());
-        ErrorResponse error = new ErrorResponse(
-                HttpStatus.NOT_FOUND.value(),
-                "Resource not found",
-                System.currentTimeMillis()
+
+        return new ResponseEntity<>(
+                new ErrorResponse(
+                        HttpStatus.NOT_FOUND.value(),
+                        "Resource not found",
+                        System.currentTimeMillis()
+                ),
+                HttpStatus.NOT_FOUND
         );
-        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 }
