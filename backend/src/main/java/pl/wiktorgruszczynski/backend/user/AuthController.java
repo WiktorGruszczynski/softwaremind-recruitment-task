@@ -1,5 +1,6 @@
 package pl.wiktorgruszczynski.backend.user;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,13 +17,17 @@ public class AuthController {
     private final UserService userService;
 
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody AuthRequest authRequest) {
+    public ResponseEntity<String> register(
+            @Valid @RequestBody AuthRequest authRequest
+    ) {
         userService.register(authRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body("OK");
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody AuthRequest authRequest){
+    public ResponseEntity<String> login(
+            @Valid @RequestBody AuthRequest authRequest
+    ){
         userService.login(authRequest);
         return ResponseEntity.ok("OK");
     }
