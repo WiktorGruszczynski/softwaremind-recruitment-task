@@ -1,1 +1,23 @@
+# IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# IDE - VS Code
+.vscode/
+.history/
+*.code-workspace
+
+# System
+.DS_Store
+Thumbs.db
+
+# Secrets
 .env
+.env.local
+docker-compose.override.yml
+
+# Logs
+*.log
+logs/
