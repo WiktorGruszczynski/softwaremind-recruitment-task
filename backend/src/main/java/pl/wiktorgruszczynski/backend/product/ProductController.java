@@ -1,8 +1,10 @@
 package pl.wiktorgruszczynski.backend.product;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import pl.wiktorgruszczynski.backend.product.dto.ProductRequest;
 import pl.wiktorgruszczynski.backend.product.dto.ProductResponse;
@@ -19,7 +21,7 @@ public class ProductController {
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ProductResponse> createProduct(
-            @RequestBody ProductRequest productRequest
+            @Valid @RequestBody ProductRequest productRequest
     ) {
         return ResponseEntity.ok(
                 productService.addProduct(productRequest)
@@ -28,7 +30,7 @@ public class ProductController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ProductResponse> getProduct(
-            @PathVariable UUID id
+            @PathVariable("id") UUID id
     ) {
         return ResponseEntity.ok(
                 productService.getProduct(id)
@@ -45,8 +47,8 @@ public class ProductController {
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ProductResponse> updateProduct(
-            @PathVariable UUID id,
-            @RequestBody ProductRequest request
+            @PathVariable("id") UUID id,
+            @Valid @RequestBody ProductRequest request
     ) {
         return ResponseEntity.ok(
                 productService.updateProduct(id, request)

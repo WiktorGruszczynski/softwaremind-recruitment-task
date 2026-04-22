@@ -1,5 +1,7 @@
 package pl.wiktorgruszczynski.backend.product.dto;
 
+import pl.wiktorgruszczynski.backend.product.model.ProductCategory;
+
 import java.math.BigDecimal;
 import java.util.UUID;
 
@@ -8,6 +10,6 @@ public record ProductResponse(
         String name,
         String description,
         BigDecimal price,
-        String category
+        ProductCategory category
 ) {
 }
