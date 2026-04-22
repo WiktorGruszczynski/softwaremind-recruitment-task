@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
 import pl.wiktorgruszczynski.backend.common.dto.ErrorResponse;
+import pl.wiktorgruszczynski.backend.common.exception.EntityNotFoundException;
 import pl.wiktorgruszczynski.backend.common.exception.UserAlreadyExistsException;
 
 @RestControllerAdvice
@@ -50,5 +51,9 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<ErrorResponse> handleAccessDenied(AccessDeniedException e) {
         return createResponse(HttpStatus.FORBIDDEN, "Access denied");
+    }
+
+    public ResponseEntity<ErrorResponse> handleEntityNotFound(EntityNotFoundException e) {
+        return createResponse(HttpStatus.NOT_FOUND, e.getMessage());
     }
 }

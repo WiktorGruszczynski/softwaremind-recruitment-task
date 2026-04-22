@@ -12,11 +12,28 @@ import java.util.List;
 
 @Configuration
 public class CassandraConfig extends AbstractCassandraConfiguration {
+
+    @Value("${spring.cassandra.contact-points}")
+    private String contactPoints;
+
+    @Value("${spring.cassandra.port:9042}")
+    private int port;
+
     @Value("${spring.cassandra.keyspace-name}")
     private String keySpaceName;
 
     @Value("${spring.cassandra.local-datacenter}")
     private String localDatacenter;
+
+    @Override
+    protected String getContactPoints() {
+        return contactPoints;
+    }
+
+    @Override
+    protected int getPort() {
+        return port;
+    }
 
     @Override
     protected String getKeyspaceName() {

@@ -2,12 +2,14 @@ spring:
   application:
     name: backend
 
-
   cassandra:
-    contact-points: localhost:9042
-    local-datacenter: datacenter1
-    keyspace-name: my_keyspace
+    contact-points: ${SPRING_CASSANDRA_CONTACT_POINTS:localhost}
+    port: 9042
+    local-datacenter: ${SPRING_CASSANDRA_LOCAL_DATACENTER:datacenter1}
+    keyspace-name: ${SPRING_CASSANDRA_KEYSPACE_NAME:my_keyspace}
     schema-action: create_if_not_exists
+    request:
+      timeout: ${SPRING_CASSANDRA_REQUEST_TIMEOUT:10s}
 
 
 server:

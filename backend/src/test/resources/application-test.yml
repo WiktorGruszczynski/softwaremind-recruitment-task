@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: backend
+
+  cassandra:
+    contact-points: localhost:9042
+    local-datacenter: datacenter1
+    keyspace-name: my_keyspace
+    schema-action: create_if_not_exists
+
+server:
+  servlet:
+    context-path: /api
+
+ADMIN_EMAIL: test-admin@example.com
+ADMIN_PASSWORD: test-password
