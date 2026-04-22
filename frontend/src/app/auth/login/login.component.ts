@@ -3,15 +3,21 @@ import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-login',
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [
+    CommonModule, 
+    ReactiveFormsModule,
+    RouterLink
+  ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
   private authService = inject(AuthService);
+  private router = inject(Router)
 
   loginForm = new FormGroup({
     email: new FormControl('', {
@@ -32,17 +38,22 @@ export class LoginComponent {
         next: (response: any) => {
           localStorage.setItem('token', response.token)
           console.log("Success")
+
+          this.router.navigate(['/']);
         },
         error: (err: HttpErrorResponse) => {
+          if (err.error && typeof err.error === 'object'){
+            console.log(err.error.message)
+            return;
+          }
+          
           console.log("Invalid credentials")
+          
         }
       })
     }
     else {
       console.log("Invalid input")
-
-      // Clear form
-      this.loginForm.markAllAsTouched()
     }
   }
 }

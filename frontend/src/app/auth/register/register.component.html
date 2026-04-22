@@ -1,1 +1,30 @@
-<p>register works!</p>
+<div class="register-container">
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <h2>Utwórz konto</h2>
+
+    <div class="form-field">
+      <label for="email">Email</label>
+      <input id="email" type="email" formControlName="email" placeholder="Twój adres email">
+    </div>
+
+    <div class="form-field">
+      <label for="password">Hasło</label>
+      <input id="password" type="password" formControlName="password" placeholder="Wpisz hasło">
+    </div>
+
+    <div class="form-field">
+      <label for="confirm-password">Hasło</label>
+      <input id="confirm-password" type="password" formControlName="confirmPassword" placeholder="Wpisz hasło">
+    </div>
+
+    <button type="submit" 
+            [disabled]="registerForm.invalid"
+            class="bg-brand hover:bg-blue-700 active:bg-blue-800 shadow-lg shadow-blue-200">
+      Zarejestruj się
+    </button>
+
+    <div class="login-link">
+      <p>Masz już konto? <a routerLink="/login">Zaloguj się</a></p>
+    </div>
+  </form>
+</div>

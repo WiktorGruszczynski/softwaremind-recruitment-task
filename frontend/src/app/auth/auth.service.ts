@@ -13,4 +13,10 @@ export class AuthService {
       `${this.apiUrl}/auth/login`, credentials
     )
   }
+
+  register(credentials: any) {
+    return this.http.post(
+      `${this.apiUrl}/auth/register`, credentials
+    )
+  }
 }

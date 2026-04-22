@@ -1,1 +1,17 @@
-<p>home works!</p>
+<nav class="flex items-center justify-between p-4 bg-white shadow-md">
+  <div class="text-xl font-bold text-gray-800">
+    Moja Aplikacja
+  </div>
+
+  <button 
+    (click)="onLogout()"
+    class="px-6 py-2 text-white bg-brand hover:bg-blue-700 active:bg-blue-800 shadow-lg shadow-blue-200 rounded-lg transition-all"
+  >
+    Wyloguj się
+  </button>
+</nav>
+
+<main class="p-8">
+  <h1>Witaj na stronie głównej!</h1>
+  <p>To jest chroniona zawartość dostępna tylko dla zalogowanych użytkowników.</p>
+</main>
