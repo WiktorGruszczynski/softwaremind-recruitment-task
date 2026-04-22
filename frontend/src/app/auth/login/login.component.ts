@@ -29,11 +29,11 @@ export class LoginComponent {
       const data = this.loginForm.getRawValue();
 
       this.authService.login(data).subscribe({
-        next: (response) => {
+        next: (response: any) => {
+          localStorage.setItem('token', response.token)
           console.log("Success")
         },
         error: (err: HttpErrorResponse) => {
-          console.log(err.status)
           console.log("Invalid credentials")
         }
       })
