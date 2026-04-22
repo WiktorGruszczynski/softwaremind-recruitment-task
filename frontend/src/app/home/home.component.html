@@ -1,17 +1,70 @@
 <nav class="flex items-center justify-between p-4 bg-white shadow-md">
-  <div class="text-xl font-bold text-gray-800">
-    Moja Aplikacja
-  </div>
-
-  <button 
-    (click)="onLogout()"
-    class="px-6 py-2 text-white bg-brand hover:bg-blue-700 active:bg-blue-800 shadow-lg shadow-blue-200 rounded-lg transition-all"
-  >
+  <div class="text-xl font-bold text-gray-800 tracking-tight">Moja Aplikacja</div>
+  <button (click)="logout()"
+          class="px-6 py-2 text-white bg-brand hover:bg-blue-700 active:bg-blue-800 shadow-lg shadow-blue-200 rounded-lg transition-all font-medium">
     Wyloguj się
   </button>
 </nav>
 
-<main class="p-8">
-  <h1>Witaj na stronie głównej!</h1>
-  <p>To jest chroniona zawartość dostępna tylko dla zalogowanych użytkowników.</p>
+<main class="p-8 max-w-6xl mx-auto">
+  <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+    <h1 class="text-3xl font-extrabold text-gray-900">Katalog Produktów</h1>
+
+    <div class="flex items-center gap-3">
+      <div class="relative">
+        <select #catSelect
+                (change)="filterByCategory(catSelect.value)"
+                class="appearance-none border border-gray-300 pl-4 pr-10 py-2.5 rounded-xl bg-white shadow-sm focus:ring-2 focus:ring-blue-400 focus:border-blue-400 outline-none transition-all cursor-pointer text-gray-700 font-medium min-w-[240px]">
+          <option value="">Wszystkie kategorie</option>
+          <option *ngFor="let cat of categories" [value]="cat">
+            {{ cat }}
+          </option>
+        </select>
+        
+        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-400">
+          <!-- <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg> -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+    <table class="w-full text-left border-collapse">
+      <thead class="bg-gray-50/50 border-b border-gray-100">
+        <tr>
+          <th class="p-5 font-bold text-gray-500 text-xs uppercase tracking-widest">Produkt</th>
+          <th class="p-5 font-bold text-gray-500 text-xs uppercase tracking-widest">Kategoria</th>
+          <th class="p-5 font-bold text-gray-500 text-xs uppercase tracking-widest text-right">Cena</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-50">
+        <tr *ngFor="let product of products" class="hover:bg-blue-50/30 transition-colors group">
+          <td class="p-5">
+            <div class="font-bold text-gray-900 group-hover:text-blue-700 transition-colors">{{ product.name }}</div>
+            <div class="text-sm text-gray-400 line-clamp-1">
+              {{ product.description }}
+            </div>
+          </td>
+          <td class="p-5">
+            <span class="px-3 py-1 bg-blue-50 text-blue-600 rounded-lg text-xs font-black border border-blue-100 uppercase">
+              {{ product.category }}
+            </span>
+          </td>
+          <td class="p-5 text-right font-mono font-bold text-gray-900 text-lg">
+            {{ product.price | currency:'PLN':'symbol':'1.2-2' }}
+          </td>
+        </tr>
+
+        <tr *ngIf="products.length === 0">
+          <td colspan="3" class="p-20 text-center text-gray-400">
+            <div class="text-5xl mb-4 text-gray-200">🔍</div>
+            <p class="text-lg font-medium text-gray-600">Brak produktów do wyświetlenia.</p>
+            <p class="text-sm">Zmień kategorię, aby zobaczyć inne wyniki.</p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </main>
