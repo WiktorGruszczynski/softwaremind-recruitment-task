@@ -3,40 +3,46 @@ package pl.wiktorgruszczynski.backend.common;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
 import pl.wiktorgruszczynski.backend.common.dto.ErrorResponse;
+import pl.wiktorgruszczynski.backend.common.exception.UserAlreadyExistsException;
 
 @RestControllerAdvice
 @Slf4j
 public class GlobalExceptionHandler {
+    private ResponseEntity<ErrorResponse> createResponse(HttpStatus status, String message) {
+        return ResponseEntity
+                .status(status)
+                .body(
+                        new ErrorResponse(
+                                status.value(),
+                                message,
+                                System.currentTimeMillis()
+                        )
+                );
+    }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponse> handleException(Exception e) {
+    public ResponseEntity<ErrorResponse> handleInternalServerError(Exception e) {
         log.error("Unexpected error", e);
-
-        return new ResponseEntity<>(
-                new ErrorResponse(
-                        HttpStatus.INTERNAL_SERVER_ERROR.value(),
-                        "An unexpected error occured",
-                        System.currentTimeMillis()
-                ),
-                HttpStatus.INTERNAL_SERVER_ERROR
-        );
+        return createResponse(HttpStatus.INTERNAL_SERVER_ERROR, "An unexpected error occurred");
     }
 
     @ExceptionHandler(NoResourceFoundException.class)
     public ResponseEntity<ErrorResponse> handleNotFoundException(NoResourceFoundException e) {
-        log.warn("404 Not Found: {}", e.getMessage());
+        return createResponse(HttpStatus.NOT_FOUND, "Resource not found");
+    }
 
-        return new ResponseEntity<>(
-                new ErrorResponse(
-                        HttpStatus.NOT_FOUND.value(),
-                        "Resource not found",
-                        System.currentTimeMillis()
-                ),
-                HttpStatus.NOT_FOUND
-        );
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseEntity<ErrorResponse> handleBadCredentials(BadCredentialsException e) {
+        return createResponse(HttpStatus.UNAUTHORIZED, "Invalid login or password");
+    }
+
+    @ExceptionHandler(UserAlreadyExistsException.class)
+    public ResponseEntity<ErrorResponse> handleUserAlreadyExists(UserAlreadyExistsException e) {
+        return createResponse(HttpStatus.CONFLICT, e.getMessage());
     }
 }
