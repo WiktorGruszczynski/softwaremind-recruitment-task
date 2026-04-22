@@ -9,5 +9,7 @@ services:
     - CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch
 
     volumes:
-      - /cassandra_data:/var/lib/cassandra
+      - cassandra_data:/var/lib/cassandra
 
+volumes:
+  cassandra_data:

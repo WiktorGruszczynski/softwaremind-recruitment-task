@@ -1,26 +1,30 @@
-package pl.wiktorgruszczynski.backend.user;
+package pl.wiktorgruszczynski.backend.auth;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import pl.wiktorgruszczynski.backend.user.dto.AuthRequest;
+import pl.wiktorgruszczynski.backend.common.exception.UserAlreadyExistsException;
+import pl.wiktorgruszczynski.backend.security.TokenService;
+import pl.wiktorgruszczynski.backend.user.UserRepository;
+import pl.wiktorgruszczynski.backend.auth.dto.AuthRequest;
+import pl.wiktorgruszczynski.backend.auth.dto.LoginResponse;
 import pl.wiktorgruszczynski.backend.user.model.Role;
 import pl.wiktorgruszczynski.backend.user.model.User;
 
 @Service
 @RequiredArgsConstructor
-public class UserService {
+public class AuthService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
+    private final TokenService tokenService;
 
     public void register(AuthRequest request) {
         if (userRepository.findByEmail(request.email()).isPresent()){
-            throw new RuntimeException("User already exists");
+            throw new UserAlreadyExistsException("User already exists");
         }
 
         User user = new User();
@@ -30,7 +34,7 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public void login(AuthRequest request) {
+    public LoginResponse login(AuthRequest request) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.email(),
@@ -38,20 +42,8 @@ public class UserService {
                 )
         );
 
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-    }
-
-    public void registerAdmin(String email, String password) {
-        if (userRepository.findByEmail(email).isPresent()) {
-            return;
-        }
-
-        User user = new User();
-        user.setEmail(email);
-        user.setPassword(
-                passwordEncoder.encode(password)
+        return new LoginResponse(
+                tokenService.generateToken(authentication)
         );
-        user.setRole(Role.ROLE_ADMIN);
-        userRepository.save(user);
     }
 }

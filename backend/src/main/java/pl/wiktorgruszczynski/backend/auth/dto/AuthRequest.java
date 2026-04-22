@@ -1,4 +1,4 @@
-package pl.wiktorgruszczynski.backend.user.dto;
+package pl.wiktorgruszczynski.backend.auth.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

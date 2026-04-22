@@ -1,10 +1,11 @@
-package pl.wiktorgruszczynski.backend.user;
+package pl.wiktorgruszczynski.backend.security;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import pl.wiktorgruszczynski.backend.user.UserRepository;
 import pl.wiktorgruszczynski.backend.user.model.User;
 
 @Service

@@ -2,11 +2,13 @@ spring:
   application:
     name: backend
 
+
   cassandra:
     contact-points: localhost:9042
     local-datacenter: datacenter1
-    keyspace-name: auth_keyspace
+    keyspace-name: my_keyspace
     schema-action: create_if_not_exists
+
 
 server:
   servlet:

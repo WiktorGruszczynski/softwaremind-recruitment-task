@@ -21,3 +21,8 @@ docker-compose.override.yml
 # Logs
 *.log
 logs/
+
+# JWT RSA Keys
+*.pem
+private.pem
+public.pem
