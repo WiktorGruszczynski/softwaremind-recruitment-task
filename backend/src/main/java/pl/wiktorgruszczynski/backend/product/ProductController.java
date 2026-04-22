@@ -4,10 +4,10 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import pl.wiktorgruszczynski.backend.product.dto.ProductRequest;
 import pl.wiktorgruszczynski.backend.product.dto.ProductResponse;
+import pl.wiktorgruszczynski.backend.product.model.ProductCategory;
 
 import java.util.List;
 import java.util.UUID;
@@ -41,6 +41,15 @@ public class ProductController {
     public ResponseEntity<List<ProductResponse>> getProducts() {
         return ResponseEntity.ok(
                 productService.getProducts()
+        );
+    }
+
+    @GetMapping("/category/{category}")
+    public ResponseEntity<List<ProductResponse>> getProductsByCategory(
+            @PathVariable("category") ProductCategory category
+            ) {
+        return ResponseEntity.ok(
+                productService.getProductsByCategory(category)
         );
     }
 

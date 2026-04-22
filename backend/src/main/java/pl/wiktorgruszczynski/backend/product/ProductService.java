@@ -6,6 +6,7 @@ import pl.wiktorgruszczynski.backend.common.exception.EntityNotFoundException;
 import pl.wiktorgruszczynski.backend.product.dto.ProductRequest;
 import pl.wiktorgruszczynski.backend.product.dto.ProductResponse;
 import pl.wiktorgruszczynski.backend.product.model.Product;
+import pl.wiktorgruszczynski.backend.product.model.ProductCategory;
 
 import java.util.List;
 import java.util.UUID;
@@ -34,6 +35,12 @@ public class ProductService {
     public List<ProductResponse> getProducts(){
         return productMapper.toResponse(
                 productRepository.findAll()
+        );
+    }
+
+    public List<ProductResponse> getProductsByCategory(ProductCategory category){
+        return productMapper.toResponse(
+            productRepository.findByCategory(category)
         );
     }
 
