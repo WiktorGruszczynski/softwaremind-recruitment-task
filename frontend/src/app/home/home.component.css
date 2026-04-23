@@ -1,4 +1,8 @@
 :host {
+  display: block;
+  min-height: 100vh;
+  background-color: #f8fafc; /* Delikatne tło strony dla kontrastu z białymi kartami */
+
   /* Kolory Brandowe */
   --color-brand: #3b82f6;
   --color-brand-hover: #2563eb;
@@ -39,30 +43,46 @@
   letter-spacing: -0.025em;
 }
 
-/* --- Nawigacja --- */
+/* --- Nawigacja (Zaktualizowana) --- */
 .navbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.875rem 2.5rem;
+  padding: 0.75rem 2.5rem;
   background-color: white;
-  
-  /* Cień i obramowanie dla kontrastu */
   border-bottom: 1px solid var(--color-gray-200);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-  
-  /* Przyklejenie nawigacji do góry */
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
   position: sticky;
   top: 0;
   z-index: 100;
 }
 
-.navbar-logo {
-  font-size: 1.35rem;
+.navbar-welcome {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.welcome-text {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--color-gray-500);
+}
+
+.user-email-highlight {
+  font-size: 0.95rem;
   font-weight: 700;
   color: var(--color-brand);
-  letter-spacing: -0.03em;
-  text-transform: uppercase;
+  /* Ochrona przed bardzo długimi mailami */
+  max-width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.navbar-actions {
+  display: flex;
+  align-items: center;
 }
 
 .btn-logout {
@@ -72,13 +92,77 @@
   border: 1px solid var(--color-gray-200);
   border-radius: 0.5rem;
   font-weight: 600;
+  font-size: 0.875rem;
   cursor: pointer;
   transition: all 0.2s;
 }
 
 .btn-logout:hover {
   background-color: var(--color-gray-50);
+  border-color: var(--color-gray-300);
   color: var(--color-gray-900);
+}
+
+.admin-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  justify-content: center;
+  align-items: center;
+  grid-column: -2 / -1; 
+  padding-left: 1rem;
+  border-left: 1px solid var(--color-gray-200);
+}
+
+/* Wspólne style dla solidnych przycisków akcji */
+.btn-edit, .btn-delete {
+  border: none;
+  cursor: pointer;
+  /* Nieco większy padding dla lepszego wyglądu przy pełnym tle */
+  padding: 0.75rem; 
+  border-radius: 0.6rem; /* Delikatnie większe zaokrąglenie */
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Kolor ikony/tekstu ustawiamy na biały */
+  color: white; 
+  /* Dodajemy subtelny cień, aby przyciski "wystawały" z tła */
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+/* --- Styl dla Edycji (Solid Blue/Brand) --- */
+.btn-edit {
+  /* Używamy Twojej zmiennej brandowej dla tła */
+  background-color: var(--color-brand); 
+}
+
+.btn-edit:hover {
+  /* Ciemniejszy odcień przy hoverze - używamy Twojej zmiennej */
+  background-color: var(--color-brand-hover); 
+  transform: translateY(-2px); /* Lekkie uniesienie */
+  /* Mocniejszy cień przy hoverze dla efektu głębi */
+  box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.3), 0 2px 4px -1px rgba(59, 130, 246, 0.2);
+}
+
+/* --- Styl dla Usuwania (Solid Red) --- */
+.btn-delete {
+  /* Solidny czerwony (Tailwind red-500) */
+  background-color: #ef4444; 
+}
+
+.btn-delete:hover {
+  /* Ciemniejszy czerwony przy hoverze (Tailwind red-600) */
+  background-color: #dc2626; 
+  transform: translateY(-2px); /* Lekkie uniesienie */
+  /* Mocniejszy czerwony cień przy hoverze */
+  box-shadow: 0 4px 6px -1px rgba(239, 68, 68, 0.3), 0 2px 4px -1px rgba(239, 68, 68, 0.2);
+}
+
+/* Efekt kliknięcia (wklęśnięcie) */
+.btn-edit:active, .btn-delete:active {
+  transform: translateY(0);
+  box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.1); /* Wewnętrzny cień */
 }
 
 /* --- Filtrowanie (Select) --- */
@@ -92,17 +176,17 @@
   border: 1px solid var(--color-gray-200);
   border-radius: 0.5rem;
   font-size: 0.875rem;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--color-gray-700);
   background-color: white;
   cursor: pointer;
-  transition: border-color 0.2s;
+  transition: all 0.2s;
 }
 
 .category-select:focus {
   outline: none;
   border-color: var(--color-brand);
-  ring: 2px solid rgba(59, 130, 246, 0.1);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
 /* --- Tabela --- */
@@ -113,26 +197,25 @@
 .product-table {
   width: 100%;
   border-collapse: separate;
-  border-spacing: 0 1rem; /* Przerwy między rzędami */
+  border-spacing: 0 1rem;
 }
 
 .product-table th {
-  padding: 0.75rem 1.5rem;
+  padding: 0 1.5rem 0.5rem 1.5rem;
   font-size: 0.75rem;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--color-gray-500);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.1em;
   text-align: left;
 }
 
-/* Główny rząd produktu */
 .product-row td {
   background-color: white;
-  padding: .65rem 1.5rem;
+  padding: 0.65rem 1.5rem;
   border-top: 1px solid var(--color-gray-200);
   border-bottom: 1px solid var(--color-gray-200);
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition: all 0.2s;
 }
 
 .product-row td:first-child {
@@ -147,7 +230,11 @@
   border-bottom-right-radius: 0.75rem;
 }
 
-/* Gdy detale są otwarte, usuwamy dolne zaokrąglenia rzędu głównego */
+.product-row:hover td {
+  border-color: var(--color-brand);
+  background-color: #f8fbff;
+}
+
 .product-row.expanded td {
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
@@ -155,13 +242,9 @@
 }
 
 .product-id {
-  font-family: 'JetBrains Mono', 'Menlo', monospace;
+  font-family: 'JetBrains Mono', monospace;
   font-size: 0.8125rem;
   color: var(--color-gray-400);
-  max-width: 200px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 .product-name {
@@ -173,12 +256,13 @@
 /* --- Przycisk Szczegółów --- */
 .btn-details {
   min-width: 130px;
-  height: 42px;
+  height: 40px;
   background-color: var(--color-brand);
   color: white;
   border: none;
   border-radius: 0.5rem;
   font-weight: 600;
+  font-size: 0.875rem;
   cursor: pointer;
   box-shadow: var(--shadow-brand);
   transition: all 0.2s;
@@ -190,11 +274,7 @@
   box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
 }
 
-.btn-details:active {
-  transform: translateY(0);
-}
-
-/* --- Sekcja Detali (Rozwinięcie) --- */
+/* --- Sekcja Detali --- */
 .product-details-row td {
   background-color: var(--color-gray-50);
   border: 1px solid var(--color-gray-200);
@@ -202,55 +282,279 @@
   border-bottom-left-radius: 0.75rem;
   border-bottom-right-radius: 0.75rem;
   padding: 0;
-  /* Animacja "podpinania" pod górny rząd */
   transform: translateY(-1rem); 
 }
 
 .product-details {
   padding: 2rem;
   display: grid;
-  grid-template-columns: 1.5fr 1fr 2fr 1fr 1fr; /* Lepsze rozplanowanie kolumn */
+  grid-template-columns: 1.2fr 1fr 2fr 1fr 1fr;
   gap: 2rem;
   align-items: start;
 }
 
-.product-details > div {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
 .product-details strong {
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   color: var(--color-gray-500);
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  margin-bottom: 0.25rem;
+  display: block;
 }
 
 .product-details span {
   font-size: 0.9375rem;
   color: var(--color-gray-800);
-  font-weight: 500;
-  word-break: break-all; /* Zapobiega wychodzeniu długich ID poza kontener */
+  font-weight: 600;
+  word-break: break-all;
 }
 
 /* --- Stan Pusty --- */
 .empty-state {
   text-align: center;
-  padding: 4rem;
-  background: var(--color-gray-50);
+  padding: 5rem;
+  background: white;
   border-radius: 1rem;
   border: 2px dashed var(--color-gray-200);
 }
 
-.empty-content h3 {
-  color: var(--color-gray-900);
-  margin-bottom: 0.5rem;
-}
-
-.empty-content p {
-  color: var(--color-gray-500);
-}
-
-/* Helpery */
 .text-right { text-align: right; }
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(15, 23, 42, 0.6); /* Ciemny, półprzezroczysty */
+  backdrop-filter: blur(8px); /* Efekt rozmycia tła */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+/* Kontener okna modala */
+.modal-container {
+  background: white;
+  width: 100%;
+  max-width: 550px;
+  padding: 2.5rem;
+  border-radius: 1.5rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  animation: modalAppear 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Animacja wjazdu modala */
+@keyframes modalAppear {
+  from { opacity: 0; transform: scale(0.95) translateY(10px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.modal-header h2 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--color-gray-900);
+  margin: 0;
+}
+
+/* Przycisk X (zamknij) */
+.btn-close {
+  background: var(--color-gray-100);
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-size: 1.25rem;
+  color: var(--color-gray-500);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.btn-close:hover {
+  background: var(--color-gray-200);
+  color: var(--color-gray-900);
+}
+
+/* Pola formularza wewnątrz modala */
+.modal-container .form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.modal-container label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-gray-500);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.modal-container input, 
+.modal-container textarea, 
+.modal-container select {
+  padding: 0.875rem 1rem;
+  border: 2px solid var(--color-gray-100);
+  border-radius: 0.75rem;
+  font-size: 1rem;
+  color: var(--color-gray-900);
+  background: var(--color-gray-50);
+  transition: all 0.2s;
+  font-family: inherit;
+}
+
+.modal-container input:focus, 
+.modal-container textarea:focus, 
+.modal-container select:focus {
+  outline: none;
+  border-color: var(--color-brand);
+  background: white;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+}
+
+/* Przyciski akcji na dole modala */
+.modal-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.btn-secondary {
+  padding: 0.875rem;
+  background: var(--color-gray-100);
+  border: none;
+  border-radius: 0.75rem;
+  font-weight: 700;
+  color: var(--color-gray-600);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-secondary:hover {
+  background: var(--color-gray-200);
+  color: var(--color-gray-900);
+}
+
+/* --- Sekcja Nagłówka --- */
+.header-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--color-gray-100); /* Delikatna linia oddzielająca */
+}
+
+.page-title {
+  font-size: 1.875rem;
+  font-weight: 800;
+  color: var(--color-gray-900);
+  letter-spacing: -0.025em;
+  margin: 0;
+}
+
+/* --- Kontener Kontrolek --- */
+.controls-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 1rem; /* Odstęp między selectem a przyciskiem */
+}
+
+/* Styl dla Selecta */
+.category-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236b7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 1rem;
+  
+  height: 42px; /* Stała wysokość dla wyrównania z przyciskiem */
+  padding: 0 2.5rem 0 1rem;
+  background-color: white;
+  border: 1px solid var(--color-gray-200);
+  border-radius: 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-gray-700);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.category-select:hover {
+  border-color: var(--color-gray-300);
+  background-color: var(--color-gray-50);
+}
+
+.category-select:focus {
+  outline: none;
+  border-color: var(--color-brand);
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+}
+
+/* Styl dla Przycisku "Add Product" */
+.btn-create {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  height: 42px; /* Taka sama wysokość jak select */
+  padding: 0 1.25rem;
+  background-color: var(--color-brand);
+  color: white;
+  border: none;
+  border-radius: 0.75rem;
+  font-weight: 700;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: var(--shadow-brand);
+}
+
+.btn-create:hover {
+  background-color: var(--color-brand-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.3);
+}
+
+.btn-create:active {
+  transform: translateY(0);
+}
+
+.btn-create svg {
+  stroke: white; /* Upewniamy się, że ikona plusa jest biała */
+}
+
+/* Główny przycisk Save (korzysta z Twojej zmiennej brand) */
+.modal-container button[type="submit"] {
+  padding: 0.875rem;
+  background-color: var(--color-brand);
+  color: white;
+  border: none;
+  border-radius: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.modal-container button[type="submit"]:hover:not(:disabled) {
+  background-color: var(--color-brand-hover);
+  transform: translateY(-1px);
+}
+
+.modal-container button[type="submit"]:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

@@ -10,27 +10,31 @@ export class ProductService {
 
   constructor(private http: HttpClient) {}
 
-  // 3. Pobieranie listy produktów
+  addProduct(product: Product): Observable<Product> {
+    return this.http.post<Product>(`${this.apiUrl}`, product)
+  }
+
+
   getProducts(): Observable<Product[]> {
     return this.http.get<Product[]>(this.apiUrl);
   }
 
-  // 2. Pobieranie szczegółów
+
   getProduct(id: string): Observable<Product> {
     return this.http.get<Product>(`${this.apiUrl}/${id}`);
   }
 
-  // 4. Aktualizacja
+
   updateProduct(id: string, product: Product): Observable<Product> {
     return this.http.put<Product>(`${this.apiUrl}/${id}`, product);
   }
 
-  // 5. Usuwanie
+
   deleteProduct(id: string): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 
-  // 6. Wyszukiwanie po kategorii
+
   getProductsByCategory(category: string): Observable<Product[]> {
     return this.http.get<Product[]>(`${this.apiUrl}/category/${category}`);
   }

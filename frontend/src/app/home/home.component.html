@@ -1,5 +1,9 @@
 <nav class="navbar">
-  <div class="navbar-logo">Logo</div>
+  <div class="navbar-welcome">
+    <span class="welcome-text">Welcome, </span>
+    <span class="user-email-highlight" *ngIf="userEmail">{{ userEmail }}</span>
+  </div>
+
   <div class="navbar-actions">
     <button (click)="logout()" class="btn-logout">
       Log out
@@ -20,6 +24,14 @@
           </option>
         </select>
       </div>
+
+      <button *ngIf="isAdmin" class="btn-create" (click)="openCreateModal()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+        </svg>
+        Add Product
+      </button>
     </div>
   </div>
 
@@ -34,23 +46,42 @@
       </thead>
       <tbody>
         <ng-container *ngFor="let product of products">
-          <tr class="product-row">
+          <tr class="product-row" [class.expanded]="expandedProductId === product.id">
             <td class="product-id">{{ product.id }}</td>
             <td class="product-name">{{ product.name }}</td>
             <td class="product-actions text-right">
-            <button type="button" class="btn-details" (click)="toggleDetails(product.id)">
-              {{ expandedProductId === product.id ? 'Hide details' : 'Show details' }}
-            </button>
+              <button type="button" class="btn-details" (click)="toggleDetails(product.id)">
+                {{ expandedProductId === product.id ? 'Hide details' : 'Show details' }}
+              </button>
             </td>
           </tr>
+
           <tr *ngIf="expandedProductId === product.id" class="product-details-row">
             <td colspan="3">
               <div class="product-details">
-                <div><strong>ID:</strong> {{ product.id }}</div>
-                <div><strong>Name:</strong> {{ product.name }}</div>
-                <div><strong>Description:</strong> {{ product.description }}</div>
-                <div><strong>Category:</strong> {{ product.category | titlecase }}</div>
-                <div><strong>Price:</strong> {{ product.price | currency:'USD':'symbol':'1.1-2' }}</div>
+                <div><strong>ID:</strong> <span>{{ product.id }}</span></div>
+                <div><strong>Name:</strong> <span>{{ product.name }}</span></div>
+                <div><strong>Description:</strong> <span>{{ product.description }}</span></div>
+                <div><strong>Category:</strong> <span>{{ product.category | titlecase }}</span></div>
+                <div><strong>Price:</strong> <span>{{ product.price | currency:'USD':'symbol':'1.1-2' }}</span></div>
+
+                <div *ngIf="isAdmin" class="admin-actions">
+                  <button class="btn-edit" (click)="editProduct(product)" title="Edit product">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                      <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                    </svg>
+                  </button>
+
+                  <button class="btn-delete" (click)="deleteProduct(product.id)" title="Delete product">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="3 6 5 6 21 6"></polyline>
+                      <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                      <line x1="10" y1="11" x2="10" y2="17"></line>
+                      <line x1="14" y1="11" x2="14" y2="17"></line>
+                    </svg>
+                  </button>
+                </div>
               </div>
             </td>
           </tr>
@@ -67,5 +98,48 @@
       </tbody>
     </table>
   </div>
-
 </main>
+
+<div class="modal-overlay" *ngIf="isEditModalOpen" (click)="closeModal()">
+  <div class="modal-container" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2>{{ currentEditingProductId ? 'Edit Product' : 'Add New Product' }}</h2>
+      <button class="btn-close" (click)="closeModal()">&times;</button>
+    </div>
+
+    <form [formGroup]="productForm" (ngSubmit)="onSaveEdit()">
+      <div class="form-field">
+        <label>Product Name</label>
+        <input type="text" formControlName="name" placeholder="Enter product name">
+      </div>
+
+      <div class="form-field">
+        <label>Description</label>
+        <textarea formControlName="description" rows="3" placeholder="Enter description"></textarea>
+      </div>
+
+      <div class="form-field">
+        <label>Category</label>
+        <select formControlName="category">
+          <option *ngFor="let cat of categories" [value]="cat">
+            {{ cat | titlecase }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-field">
+        <label>Price (USD)</label>
+        <input type="number" formControlName="price" step="0.01">
+      </div>
+
+      <div class="modal-actions">
+        <button type="button" class="btn-secondary" (click)="closeModal()">
+          Cancel
+        </button>
+        <button type="submit" class="btn-auth" [disabled]="productForm.invalid">
+          {{ currentEditingProductId ? 'Save Changes' : 'Create Product' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
