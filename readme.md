@@ -6,14 +6,14 @@ This project is a comprehensive web application for managing a product catalog, 
 
 The application utilizes a modern tech stack to ensure security, scalability, and maintainability:
 
-* **Backend**: Spring Boot 3.5.13 with Java 21.
-* **Database**: Apache Cassandra 5.0.8 for high-availability data storage.
-* **Frontend**: Angular framework for a responsive user interface.
-* **Security**: Spring Security with OAuth2 Resource Server (JWT) and CSRF protection.
-* **Validation**: Jakarta Validation for enforcing business rules, such as preventing negative prices.
-* **Infrastructure**: Docker and Docker Compose for containerization.
-* **CI/CD**: GitHub Actions for automated building and testing.
-* **Testing**: JUnit 5, MockMvc, and Testcontainers for integration and security verification.
+* **Backend**: Spring Boot 3.5.13, Java 21
+* **Database**: Apache Cassandra 5.0.8
+* **Frontend**: Angular
+* **Security**: Spring Security (OAuth2 JWT, CSRF)
+* **Validation**: Jakarta Validation
+* **Infrastructure**: Docker, Docker Compose
+* **CI/CD**: GitHub Actions
+* **Testing**: JUnit 5, MockMvc, Testcontainers
 
 ## 2. Documentation
 
@@ -41,7 +41,7 @@ The project includes **Swagger UI**, which provides an interactive interface to 
 
 ### Testing Strategy
 The system's reliability is verified through several testing layers:
-* **Unit Tests**: Verification of API responses and data validation (e.g., price cannot be negative).
+* **Unit Tests**: Verification of API responses and data validation.
 * **Security Tests**: Ensuring correct endpoint permissions based on user roles.
 * **Integration Tests**: Performed using an embedded database or Testcontainers.
 
@@ -52,14 +52,25 @@ To build and run this application, you must have **Docker** and **Docker Compose
 ### Installation Steps
 1.  **Clone the repository**:
     ```bash
-    git clone <repository-url>
+    git clone https://github.com/WiktorGruszczynski/softwaremind-recruitment-task.git
     cd softwaremind-recruitment-task
     ```
 
-2.  **Environment Configuration**:
-    The application requires administrative credentials for the initial setup. You can set these as environment variables in your `.env` file:
-    * `ADMIN_EMAIL`: The email for the default admin account.
-    * `ADMIN_PASSWORD`: The password for the admin account.
+2. Environment Configuration
+   The application requires administrative credentials for the initial setup. You can configure these using the following methods:
+   
+   * **`.env` File (Recommended):** Create a `.env` file in the root directory and define the variables there. This is the most secure method to keep sensitive data out of your version control system.
+   * **`compose.yml` File:** You can manually set these values directly in the `environment` section of the `compose.yml` file. However, **this is not recommended** for security reasons.
+   
+   ---
+   
+   ### Configuration Variables
+   
+   | Variable | Description |
+   | :--- | :--- |
+   | **ADMIN_EMAIL** | The email address for the default administrator account. |
+   | **ADMIN_PASSWORD** | The password for the default administrator account. |
+   
 
 3.  **Launch via Docker Compose**:
     Run the following command to build and start the database, backend, and frontend services simultaneously:
@@ -73,5 +84,3 @@ To build and run this application, you must have **Docker** and **Docker Compose
     * **Cassandra Database**: The database service is available on port `9042`.
 
 ---
-*Author: Wiktor Gruszczyński*
-*Project completed as part of
