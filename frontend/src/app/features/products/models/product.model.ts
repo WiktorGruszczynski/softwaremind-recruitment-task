@@ -7,12 +7,13 @@ export interface Product {
 }
 
 export enum ProductCategory {
-  ELECTRONICS = 'ELECTRONICS',
-  FASHION = 'FASHION',
-  HOME_GARDEN = 'HOME_GARDEN',
-  HEALTH_BEAUTY = 'HEALTH_BEAUTY',
-  SPORTS_LEISURE = 'SPORTS_LEISURE',
-  GROCERIES = 'GROCERIES',
-  AUTOMOTIVE = 'AUTOMOTIVE',
-  OTHER = 'OTHER'
+  ELECTRONICS = 'electronics',
+  FASHION = 'fashion',
+  HOME_GARDEN = 'home & garden',
+  HEALTH = 'health',
+  BEAUTY = 'beauty',
+  SPORTS = 'sports',
+  GROCERIES = 'groceries',
+  AUTOMOTIVE = 'automotive',
+  OTHER = 'other'
 }

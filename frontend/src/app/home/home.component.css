@@ -1,0 +1,256 @@
+:host {
+  /* Kolory Brandowe */
+  --color-brand: #3b82f6;
+  --color-brand-hover: #2563eb;
+  --color-brand-active: #1d4ed8;
+  --shadow-brand: 0 4px 14px 0 rgba(59, 130, 246, 0.39);
+
+  /* Paleta szarości */
+  --color-gray-900: #111827;
+  --color-gray-800: #1f2937;
+  --color-gray-700: #374151;
+  --color-gray-600: #4b5563;
+  --color-gray-500: #6b7280;
+  --color-gray-400: #9ca3af;
+  --color-gray-200: #e5e7eb;
+  --color-gray-100: #f3f4f6;
+  --color-gray-50: #f9fafb;
+}
+
+/* --- Układ Ogólny --- */
+.container {
+  padding: 2.5rem 1rem;
+  max-width: 80rem;
+  margin: 0 auto;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+.header-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2.5rem;
+}
+
+.page-title {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--color-gray-900);
+  letter-spacing: -0.025em;
+}
+
+/* --- Nawigacja --- */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.875rem 2.5rem;
+  background-color: white;
+  
+  /* Cień i obramowanie dla kontrastu */
+  border-bottom: 1px solid var(--color-gray-200);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  
+  /* Przyklejenie nawigacji do góry */
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.navbar-logo {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--color-brand);
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+}
+
+.btn-logout {
+  padding: 0.5rem 1.25rem;
+  color: var(--color-gray-700);
+  background: white;
+  border: 1px solid var(--color-gray-200);
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-logout:hover {
+  background-color: var(--color-gray-50);
+  color: var(--color-gray-900);
+}
+
+/* --- Filtrowanie (Select) --- */
+.category-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236b7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 1rem;
+  padding: 0.5rem 2.5rem 0.5rem 1rem;
+  border: 1px solid var(--color-gray-200);
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-gray-700);
+  background-color: white;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.category-select:focus {
+  outline: none;
+  border-color: var(--color-brand);
+  ring: 2px solid rgba(59, 130, 246, 0.1);
+}
+
+/* --- Tabela --- */
+.table-card {
+  overflow-x: auto;
+}
+
+.product-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 1rem; /* Przerwy między rzędami */
+}
+
+.product-table th {
+  padding: 0.75rem 1.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-gray-500);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-align: left;
+}
+
+/* Główny rząd produktu */
+.product-row td {
+  background-color: white;
+  padding: .65rem 1.5rem;
+  border-top: 1px solid var(--color-gray-200);
+  border-bottom: 1px solid var(--color-gray-200);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.product-row td:first-child {
+  border-left: 1px solid var(--color-gray-200);
+  border-top-left-radius: 0.75rem;
+  border-bottom-left-radius: 0.75rem;
+}
+
+.product-row td:last-child {
+  border-right: 1px solid var(--color-gray-200);
+  border-top-right-radius: 0.75rem;
+  border-bottom-right-radius: 0.75rem;
+}
+
+/* Gdy detale są otwarte, usuwamy dolne zaokrąglenia rzędu głównego */
+.product-row.expanded td {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom-color: transparent;
+}
+
+.product-id {
+  font-family: 'JetBrains Mono', 'Menlo', monospace;
+  font-size: 0.8125rem;
+  color: var(--color-gray-400);
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.product-name {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--color-gray-900);
+}
+
+/* --- Przycisk Szczegółów --- */
+.btn-details {
+  min-width: 130px;
+  height: 42px;
+  background-color: var(--color-brand);
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: var(--shadow-brand);
+  transition: all 0.2s;
+}
+
+.btn-details:hover {
+  background-color: var(--color-brand-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+}
+
+.btn-details:active {
+  transform: translateY(0);
+}
+
+/* --- Sekcja Detali (Rozwinięcie) --- */
+.product-details-row td {
+  background-color: var(--color-gray-50);
+  border: 1px solid var(--color-gray-200);
+  border-top: none;
+  border-bottom-left-radius: 0.75rem;
+  border-bottom-right-radius: 0.75rem;
+  padding: 0;
+  /* Animacja "podpinania" pod górny rząd */
+  transform: translateY(-1rem); 
+}
+
+.product-details {
+  padding: 2rem;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 2fr 1fr 1fr; /* Lepsze rozplanowanie kolumn */
+  gap: 2rem;
+  align-items: start;
+}
+
+.product-details > div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.product-details strong {
+  font-size: 0.7rem;
+  color: var(--color-gray-500);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.product-details span {
+  font-size: 0.9375rem;
+  color: var(--color-gray-800);
+  font-weight: 500;
+  word-break: break-all; /* Zapobiega wychodzeniu długich ID poza kontener */
+}
+
+/* --- Stan Pusty --- */
+.empty-state {
+  text-align: center;
+  padding: 4rem;
+  background: var(--color-gray-50);
+  border-radius: 1rem;
+  border: 2px dashed var(--color-gray-200);
+}
+
+.empty-content h3 {
+  color: var(--color-gray-900);
+  margin-bottom: 0.5rem;
+}
+
+.empty-content p {
+  color: var(--color-gray-500);
+}
+
+/* Helpery */
+.text-right { text-align: right; }

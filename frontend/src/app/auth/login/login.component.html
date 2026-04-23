@@ -1,33 +1,33 @@
-<div class="login-container">
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-        <h2>Zaloguj się</h2>
+<div class="auth-container">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="auth-card">
+    <h2 class="auth-title">Sign In</h2>
+    
+    <div class="form-field">
+      <label for="email">Email</label>
+      <input 
+        id="email" 
+        type="email" 
+        formControlName="email" 
+        placeholder="Email address"
+      >
+    </div>
 
-        <div class="form-field">
-            <label for="email">Email</label>
-            <input 
-                id="email"
-                type="email" 
-                formControlName="email"
-                placeholder="Mail address"
-            >
-        </div>
+    <div class="form-field">
+      <label for="password">Password</label>
+      <input 
+        id="password" 
+        type="password" 
+        formControlName="password" 
+        placeholder="Enter password"
+      >
+    </div>
 
-        <div class="form-field">
-            <label for="password">Hasło</label>
-            <input 
-                id="password" 
-                type="password" 
-                formControlName="password" 
-                placeholder="Wpisz hasło"
-            >
-        </div>
+    <button type="submit" class="btn-auth" [disabled]="loginForm.invalid">
+      Sign In
+    </button>
 
-        <button type="submit" [disabled]="loginForm.invalid">
-            Zaloguj
-        </button>
-
-        <div class="register-link">
-            <p>Nie masz konta? <a routerLink="/register">Zarejestruj się</a></p>
-        </div>
-    </form>
+    <div class="auth-footer">
+      <p>Don't have an account? <a routerLink="/register">Sign Up</a></p>
+    </div>
+  </form>
 </div>

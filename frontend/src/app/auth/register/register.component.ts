@@ -9,7 +9,7 @@ import { HttpErrorResponse } from '@angular/common/http';
   standalone: true,
   imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './register.component.html',
-  styleUrl: './register.component.css'
+  styleUrls: ['./register.component.css', '../auth-shared.css']
 })
 export class RegisterComponent {
   private authService = inject(AuthService);
