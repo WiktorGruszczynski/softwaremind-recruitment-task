@@ -1,7 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-// Dodajemy importy dla formularzy
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Product, ProductCategory } from "../features/products/models/product.model";
 import { ProductService } from "../features/products/services/product.service";
@@ -13,7 +12,7 @@ import { UserResponse } from '../auth/models/user.model';
   standalone: true,
   imports: [
     CommonModule,
-    ReactiveFormsModule // KLUCZOWE: Dodaj to tutaj!
+    ReactiveFormsModule
   ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
@@ -22,15 +21,13 @@ export class HomeComponent implements OnInit {
   private productService = inject(ProductService);
   private authService = inject(AuthService);
   private router = inject(Router);
-  private fb = inject(FormBuilder); // Wstrzykujemy FormBuilder
+  private fb = inject(FormBuilder);
 
   expandedProductId: string | undefined;
   products: Product[] = [];
   userEmail: string = "";
   userRoles: string[] = [];
   categories = Object.values(ProductCategory);
-
-  // Zmienne dla Modala
   isEditModalOpen = false;
   productForm: FormGroup;
   currentEditingProductId: string | undefined;
@@ -49,6 +46,8 @@ export class HomeComponent implements OnInit {
     this.getUserInfo();
   }
 
+  // User logic
+
   getUserInfo() {
     this.authService.whoami().subscribe({
       next: (response: UserResponse) => {
@@ -59,8 +58,8 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  // --- Logika Produktów ---
-
+  // Products logic
+  
   loadProducts() {
     this.productService.getProducts().subscribe(data => this.products = data);
   }
@@ -75,13 +74,11 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  // --- Logika Edycji (MODAL) ---
 
   editProduct(product: Product) {
     this.currentEditingProductId = product.id;
     this.isEditModalOpen = true;
 
-    // Wypełniamy formularz danymi wybranego produktu
     this.productForm.patchValue({
       name: product.name,
       description: product.description,
@@ -96,40 +93,41 @@ export class HomeComponent implements OnInit {
     this.productForm.reset();
   }
 
-onSaveEdit() {
-  if (this.productForm.invalid) return;
+  onSaveEdit() {
+    if (this.productForm.invalid) return;
 
-  const productData = this.productForm.value;
+    const productData = this.productForm.value;
 
-  if (this.currentEditingProductId) {
-    // EDYCJA (Istniejący kod)
-    this.productService.updateProduct(this.currentEditingProductId, productData).subscribe({
-      next: (savedProduct) => {
-        const index = this.products.findIndex(p => p.id === savedProduct.id);
-        if (index !== -1) this.products[index] = savedProduct;
-        this.closeModal();
-      }
-    });
-  } else {
-    // TWORZENIE NOWEGO PRODUKTU
-    this.productService.addProduct(productData).subscribe({
-      next: (newProduct) => {
-        this.products.push(newProduct); // Dodaj na koniec listy
-        this.closeModal();
-      },
-      error: (err) => console.error("Creation failed", err)
-    });
+    if (this.currentEditingProductId) {
+      // edit product
+      this.productService.updateProduct(this.currentEditingProductId, productData).subscribe({
+        next: (savedProduct) => {
+          const index = this.products.findIndex(p => p.id === savedProduct.id);
+          if (index !== -1) this.products[index] = savedProduct;
+          this.closeModal();
+        }
+      });
+    } else {
+      // add new product
+      this.productService.addProduct(productData).subscribe({
+        next: (newProduct) => {
+          this.products.push(newProduct); 
+          this.closeModal();
+        },
+        error: (err) => console.error("Creation failed", err)
+      });
+    }
   }
-}
 
   openCreateModal() {
-    this.currentEditingProductId = undefined; // Resetujemy ID
-    this.productForm.reset({ price: 0 });        // Czyścimy formularz
+    this.currentEditingProductId = undefined; 
+    this.productForm.reset({ price: 0 });   
     this.isEditModalOpen = true;
   }
 
   deleteProduct(id: string | undefined) {
     if (!id) return;
+
     if (confirm('Are you sure you want to delete this product?')) {
       this.productService.deleteProduct(id).subscribe({
         next: () => {
@@ -143,7 +141,7 @@ onSaveEdit() {
     }
   }
 
-  // --- Inne ---
+  //other stuff
 
   toggleDetails(productId: string | undefined) {
     this.expandedProductId = this.expandedProductId === productId ? undefined : productId;

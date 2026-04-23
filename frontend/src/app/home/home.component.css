@@ -1,15 +1,15 @@
 :host {
   display: block;
   min-height: 100vh;
-  background-color: #f8fafc; /* Delikatne tło strony dla kontrastu z białymi kartami */
+  background-color: #f8fafc;
 
-  /* Kolory Brandowe */
+  /* Brand Colors */
   --color-brand: #3b82f6;
   --color-brand-hover: #2563eb;
   --color-brand-active: #1d4ed8;
   --shadow-brand: 0 4px 14px 0 rgba(59, 130, 246, 0.39);
 
-  /* Paleta szarości */
+  /* Grayscale */
   --color-gray-900: #111827;
   --color-gray-800: #1f2937;
   --color-gray-700: #374151;
@@ -21,12 +21,12 @@
   --color-gray-50: #f9fafb;
 }
 
-/* --- Układ Ogólny --- */
+/* --- Layout --- */
 .container {
   padding: 2.5rem 1rem;
   max-width: 80rem;
   margin: 0 auto;
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-family: 'Inter', system-ui, sans-serif;
 }
 
 .header-section {
@@ -34,16 +34,19 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 2.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--color-gray-100);
 }
 
 .page-title {
-  font-size: 2rem;
+  font-size: 1.875rem;
   font-weight: 800;
   color: var(--color-gray-900);
   letter-spacing: -0.025em;
+  margin: 0;
 }
 
-/* --- Nawigacja (Zaktualizowana) --- */
+/* --- Navigation --- */
 .navbar {
   display: flex;
   align-items: center;
@@ -73,16 +76,10 @@
   font-size: 0.95rem;
   font-weight: 700;
   color: var(--color-brand);
-  /* Ochrona przed bardzo długimi mailami */
   max-width: 250px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-.navbar-actions {
-  display: flex;
-  align-items: center;
 }
 
 .btn-logout {
@@ -103,82 +100,27 @@
   color: var(--color-gray-900);
 }
 
-.admin-actions {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  justify-content: center;
-  align-items: center;
-  grid-column: -2 / -1; 
-  padding-left: 1rem;
-  border-left: 1px solid var(--color-gray-200);
-}
-
-/* Wspólne style dla solidnych przycisków akcji */
-.btn-edit, .btn-delete {
-  border: none;
-  cursor: pointer;
-  /* Nieco większy padding dla lepszego wyglądu przy pełnym tle */
-  padding: 0.75rem; 
-  border-radius: 0.6rem; /* Delikatnie większe zaokrąglenie */
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+/* --- Controls & Filters --- */
+.controls-wrapper {
   display: flex;
   align-items: center;
-  justify-content: center;
-  /* Kolor ikony/tekstu ustawiamy na biały */
-  color: white; 
-  /* Dodajemy subtelny cień, aby przyciski "wystawały" z tła */
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  gap: 1rem;
 }
 
-/* --- Styl dla Edycji (Solid Blue/Brand) --- */
-.btn-edit {
-  /* Używamy Twojej zmiennej brandowej dla tła */
-  background-color: var(--color-brand); 
-}
-
-.btn-edit:hover {
-  /* Ciemniejszy odcień przy hoverze - używamy Twojej zmiennej */
-  background-color: var(--color-brand-hover); 
-  transform: translateY(-2px); /* Lekkie uniesienie */
-  /* Mocniejszy cień przy hoverze dla efektu głębi */
-  box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.3), 0 2px 4px -1px rgba(59, 130, 246, 0.2);
-}
-
-/* --- Styl dla Usuwania (Solid Red) --- */
-.btn-delete {
-  /* Solidny czerwony (Tailwind red-500) */
-  background-color: #ef4444; 
-}
-
-.btn-delete:hover {
-  /* Ciemniejszy czerwony przy hoverze (Tailwind red-600) */
-  background-color: #dc2626; 
-  transform: translateY(-2px); /* Lekkie uniesienie */
-  /* Mocniejszy czerwony cień przy hoverze */
-  box-shadow: 0 4px 6px -1px rgba(239, 68, 68, 0.3), 0 2px 4px -1px rgba(239, 68, 68, 0.2);
-}
-
-/* Efekt kliknięcia (wklęśnięcie) */
-.btn-edit:active, .btn-delete:active {
-  transform: translateY(0);
-  box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.1); /* Wewnętrzny cień */
-}
-
-/* --- Filtrowanie (Select) --- */
 .category-select {
   appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236b7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 0.75rem center;
   background-size: 1rem;
-  padding: 0.5rem 2.5rem 0.5rem 1rem;
+  height: 42px;
+  padding: 0 2.5rem 0 1rem;
+  background-color: white;
   border: 1px solid var(--color-gray-200);
-  border-radius: 0.5rem;
+  border-radius: 0.75rem;
   font-size: 0.875rem;
   font-weight: 600;
   color: var(--color-gray-700);
-  background-color: white;
   cursor: pointer;
   transition: all 0.2s;
 }
@@ -186,10 +128,10 @@
 .category-select:focus {
   outline: none;
   border-color: var(--color-brand);
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
 }
 
-/* --- Tabela --- */
+/* --- Table --- */
 .table-card {
   overflow-x: auto;
 }
@@ -220,14 +162,12 @@
 
 .product-row td:first-child {
   border-left: 1px solid var(--color-gray-200);
-  border-top-left-radius: 0.75rem;
-  border-bottom-left-radius: 0.75rem;
+  border-radius: 0.75rem 0 0 0.75rem;
 }
 
 .product-row td:last-child {
   border-right: 1px solid var(--color-gray-200);
-  border-top-right-radius: 0.75rem;
-  border-bottom-right-radius: 0.75rem;
+  border-radius: 0 0.75rem 0.75rem 0;
 }
 
 .product-row:hover td {
@@ -236,9 +176,9 @@
 }
 
 .product-row.expanded td {
+  border-bottom-color: transparent;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
-  border-bottom-color: transparent;
 }
 
 .product-id {
@@ -253,34 +193,18 @@
   color: var(--color-gray-900);
 }
 
-/* --- Przycisk Szczegółów --- */
-.btn-details {
-  min-width: 130px;
-  height: 40px;
-  background-color: var(--color-brand);
-  color: white;
-  border: none;
-  border-radius: 0.5rem;
-  font-weight: 600;
-  font-size: 0.875rem;
-  cursor: pointer;
-  box-shadow: var(--shadow-brand);
-  transition: all 0.2s;
+.product-actions{
+  display: flex;
+  justify-content: flex-end;
+  text-align: right;
 }
 
-.btn-details:hover {
-  background-color: var(--color-brand-hover);
-  transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
-}
-
-/* --- Sekcja Detali --- */
+/* --- Product Details --- */
 .product-details-row td {
   background-color: var(--color-gray-50);
   border: 1px solid var(--color-gray-200);
   border-top: none;
-  border-bottom-left-radius: 0.75rem;
-  border-bottom-right-radius: 0.75rem;
+  border-radius: 0 0 0.75rem 0.75rem;
   padding: 0;
   transform: translateY(-1rem); 
 }
@@ -309,25 +233,73 @@
   word-break: break-all;
 }
 
-/* --- Stan Pusty --- */
-.empty-state {
-  text-align: center;
-  padding: 5rem;
-  background: white;
-  border-radius: 1rem;
-  border: 2px dashed var(--color-gray-200);
+/* --- Admin Actions --- */
+.admin-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  justify-content: center;
+  align-items: center;
+  grid-column: -2 / -1; 
+  padding-left: 1rem;
+  border-left: 1px solid var(--color-gray-200);
 }
 
-.text-right { text-align: right; }
+.btn-create, .btn-details, .btn-edit, .btn-delete {
+  cursor: pointer;
+  font-weight: 600;
+  border-radius: 0.5rem;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
+.btn-create {
+  gap: 0.5rem;
+  height: 42px;
+  padding: 0 1.25rem;
+  background-color: var(--color-brand);
+  color: white;
+  border: none;
+  font-size: 0.875rem;
+  box-shadow: var(--shadow-brand);
+}
+
+.btn-details {
+  min-width: 130px;
+  height: 40px;
+  background-color: var(--color-brand);
+  color: white;
+  border: none;
+  font-size: 0.875rem;
+  box-shadow: var(--shadow-brand);
+}
+
+.btn-edit, .btn-delete {
+  border: none;
+  padding: 0.75rem; 
+  color: white;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+}
+
+.btn-edit { background-color: var(--color-brand); }
+.btn-delete { background-color: #ef4444; }
+
+.btn-create:hover, .btn-details:hover, .btn-edit:hover, .btn-delete:hover {
+  transform: translateY(-1px);
+}
+
+.btn-create:active, .btn-edit:active, .btn-delete:active {
+  transform: translateY(0);
+}
+
+/* --- Modal --- */
 .modal-overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(15, 23, 42, 0.6); /* Ciemny, półprzezroczysty */
-  backdrop-filter: blur(8px); /* Efekt rozmycia tła */
+  inset: 0;
+  background-color: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(8px);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -335,7 +307,6 @@
   padding: 1rem;
 }
 
-/* Kontener okna modala */
 .modal-container {
   background: white;
   width: 100%;
@@ -346,7 +317,6 @@
   animation: modalAppear 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Animacja wjazdu modala */
 @keyframes modalAppear {
   from { opacity: 0; transform: scale(0.95) translateY(10px); }
   to { opacity: 1; transform: scale(1) translateY(0); }
@@ -366,28 +336,19 @@
   margin: 0;
 }
 
-/* Przycisk X (zamknij) */
 .btn-close {
   background: var(--color-gray-100);
   border: none;
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  font-size: 1.25rem;
   color: var(--color-gray-500);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s;
 }
 
-.btn-close:hover {
-  background: var(--color-gray-200);
-  color: var(--color-gray-900);
-}
-
-/* Pola formularza wewnątrz modala */
 .modal-container .form-field {
   display: flex;
   flex-direction: column;
@@ -400,7 +361,6 @@
   font-weight: 700;
   color: var(--color-gray-500);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
 }
 
 .modal-container input, 
@@ -412,20 +372,16 @@
   font-size: 1rem;
   color: var(--color-gray-900);
   background: var(--color-gray-50);
-  transition: all 0.2s;
   font-family: inherit;
+  transition: all 0.2s;
 }
 
-.modal-container input:focus, 
-.modal-container textarea:focus, 
-.modal-container select:focus {
+.modal-container input:focus {
   outline: none;
   border-color: var(--color-brand);
   background: white;
-  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
 }
 
-/* Przyciski akcji na dole modala */
 .modal-actions {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -441,103 +397,8 @@
   font-weight: 700;
   color: var(--color-gray-600);
   cursor: pointer;
-  transition: all 0.2s;
 }
 
-.btn-secondary:hover {
-  background: var(--color-gray-200);
-  color: var(--color-gray-900);
-}
-
-/* --- Sekcja Nagłówka --- */
-.header-section {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 2.5rem;
-  padding-bottom: 1.5rem;
-  border-bottom: 1px solid var(--color-gray-100); /* Delikatna linia oddzielająca */
-}
-
-.page-title {
-  font-size: 1.875rem;
-  font-weight: 800;
-  color: var(--color-gray-900);
-  letter-spacing: -0.025em;
-  margin: 0;
-}
-
-/* --- Kontener Kontrolek --- */
-.controls-wrapper {
-  display: flex;
-  align-items: center;
-  gap: 1rem; /* Odstęp między selectem a przyciskiem */
-}
-
-/* Styl dla Selecta */
-.category-select {
-  appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236b7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 0.75rem center;
-  background-size: 1rem;
-  
-  height: 42px; /* Stała wysokość dla wyrównania z przyciskiem */
-  padding: 0 2.5rem 0 1rem;
-  background-color: white;
-  border: 1px solid var(--color-gray-200);
-  border-radius: 0.75rem;
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: var(--color-gray-700);
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.category-select:hover {
-  border-color: var(--color-gray-300);
-  background-color: var(--color-gray-50);
-}
-
-.category-select:focus {
-  outline: none;
-  border-color: var(--color-brand);
-  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
-}
-
-/* Styl dla Przycisku "Add Product" */
-.btn-create {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  height: 42px; /* Taka sama wysokość jak select */
-  padding: 0 1.25rem;
-  background-color: var(--color-brand);
-  color: white;
-  border: none;
-  border-radius: 0.75rem;
-  font-weight: 700;
-  font-size: 0.875rem;
-  cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: var(--shadow-brand);
-}
-
-.btn-create:hover {
-  background-color: var(--color-brand-hover);
-  transform: translateY(-1px);
-  box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.3);
-}
-
-.btn-create:active {
-  transform: translateY(0);
-}
-
-.btn-create svg {
-  stroke: white; /* Upewniamy się, że ikona plusa jest biała */
-}
-
-/* Główny przycisk Save (korzysta z Twojej zmiennej brand) */
 .modal-container button[type="submit"] {
   padding: 0.875rem;
   background-color: var(--color-brand);
@@ -546,15 +407,20 @@
   border-radius: 0.75rem;
   font-weight: 700;
   cursor: pointer;
-  transition: all 0.2s;
-}
-
-.modal-container button[type="submit"]:hover:not(:disabled) {
-  background-color: var(--color-brand-hover);
-  transform: translateY(-1px);
 }
 
 .modal-container button[type="submit"]:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
+
+/* --- Helpers --- */
+.empty-state {
+  text-align: center;
+  padding: 5rem;
+  background: white;
+  border-radius: 1rem;
+  border: 2px dashed var(--color-gray-200);
+}
+
+.text-right { text-align: right; }
