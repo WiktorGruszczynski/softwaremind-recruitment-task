@@ -2,6 +2,7 @@ package pl.wiktorgruszczynski.backend.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -61,6 +62,11 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         // allow for login and register
                         .requestMatchers("/auth/**").permitAll()
+
+                        // only admin can modify products
+                        .requestMatchers(HttpMethod.POST, "/products/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/products/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/products/**").hasRole("ADMIN")
 
                         // require authentication in order to access other endpoints
                         .anyRequest().authenticated()

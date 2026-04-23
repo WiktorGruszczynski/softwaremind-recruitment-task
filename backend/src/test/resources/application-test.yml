@@ -14,3 +14,10 @@ server:
 
 ADMIN_EMAIL: test-admin@example.com
 ADMIN_PASSWORD: test-password
+
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
+        web: DEBUG

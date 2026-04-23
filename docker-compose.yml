@@ -7,7 +7,7 @@ services:
     environment:
     - CASSANDRA_DC=datacenter1
     - CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch
-    - MAX_HEAP_SIZE=400M
+    - MAX_HEAP_SIZE=400M  
     - HEAP_NEWSIZE=100M
     - MALLOC_ARENA_MAX=2
 
