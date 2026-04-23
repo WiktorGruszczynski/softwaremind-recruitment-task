@@ -13,6 +13,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class RegisterComponent {
   private authService = inject(AuthService);
+  private router = inject(Router);
 
   registerForm = new FormGroup({
     email: new FormControl('', {
@@ -35,7 +36,7 @@ export class RegisterComponent {
       
       this.authService.register(data).subscribe({
         next: (response: any) => {
-          console.log("success")
+          this.router.navigate(['/login'])
         },
         error: (err: HttpErrorResponse) => {
           if (err.error && typeof err.error === 'object'){
