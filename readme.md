@@ -20,22 +20,22 @@ The application utilizes a modern tech stack to ensure security, scalability, an
 ### API Endpoints
 The following table summarizes the available REST API endpoints for product management:
 
-| Method | Endpoint | Description |
-| :--- | :--- | :--- |
-| **POST** | `/api/products` | Add a new product |
-| **GET** | `/api/products` | Retrieve the full list of products |
-| **GET** | `/api/products/{id}` | Retrieve details for a specific product |
-| **PUT** | `/api/products/{id}` | Update an existing product |
-| **DELETE** | `/api/products/{id}` | Remove a product from the system |
-| **GET** | `/api/products/category/{category}` | Filter products by their category |
+| Method     | Endpoint                            | Description                             |
+|:-----------|:------------------------------------|:----------------------------------------|
+| **POST**   | `/api/products`                     | Add a new product                       |
+| **GET**    | `/api/products`                     | Retrieve the full list of products      |
+| **GET**    | `/api/products/{id}`                | Retrieve details for a specific product |
+| **PUT**    | `/api/products/{id}`                | Update an existing product              |
+| **DELETE** | `/api/products/{id}`                | Remove a product from the system        |
+| **GET**    | `/api/products/category/{category}` | Filter products by their category       |
 
 ### Interactive API Documentation
-The project includes **Swagger UI**, which provides an interactive interface to explore and test the API endpoints. Once the application is running, it is accessible at:
+The project includes **Swagger UI**, which provides an interactive interface to explore and test the API endpoints:
 * **Swagger UI:** `/api/swagger-ui.html`
 
 ### Security and Roles
 * **Authorized Access**: Every request to the API (excluding registration and login) must be authorized.
-* **Role-Based Access Control (RBAC)**:
+* **Role-Based Access Control**:
     * **USER**: Authorized to browse products and view details.
     * **ADMIN**: Authorized for full management operations, including adding, editing, and deleting products.
 
@@ -65,10 +65,10 @@ To build and run this application, you must have **Docker** and **Docker Compose
    
    ### Configuration Variables
    
-   | Variable | Description |
-   | :--- | :--- |
-   | **ADMIN_EMAIL** | The email address for the default administrator account. |
-   | **ADMIN_PASSWORD** | The password for the default administrator account. |
+   | Variable           | Description                                              |
+   |:-------------------|:---------------------------------------------------------|
+   | **ADMIN_EMAIL**    | The email address for the default administrator account. |
+   | **ADMIN_PASSWORD** | The password for the default administrator account.      |
    
 
 3.  **Launch via Docker Compose**:
@@ -83,3 +83,20 @@ To build and run this application, you must have **Docker** and **Docker Compose
     * **Cassandra Database**: The database service is available on port `9042`.
 
 ---
+
+## 4. Preview
+
+### Products catalog
+
+**Admin view**
+
+The administrator interface displays full product details alongside action buttons for hiding details, editing information, and deleting the entry
+
+![admin-view](assets/product-catalog-admin-view.png)
+
+**User view**
+
+The standard user interface shows the same product specifications but restricts the available actions to only hiding or showing the details
+
+![user-view](assets/product-catalog-user-view.png)
+
