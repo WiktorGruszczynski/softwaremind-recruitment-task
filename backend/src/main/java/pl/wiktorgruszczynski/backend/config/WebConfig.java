@@ -10,7 +10,10 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addFormatters(FormatterRegistry registry) {
-        registry.addConverter(String.class, ProductCategory.class,
-                source -> ProductCategory.valueOf(source.toUpperCase()));
+        registry.addConverter(
+                String.class,
+                ProductCategory.class,
+                ProductCategory::fromString
+        );
     }
 }

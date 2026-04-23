@@ -6,15 +6,15 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.stream.Stream;
 
 public enum ProductCategory {
-    ELECTRONICS("Electronics"),
-    FASHION("Fashion"),
-    HOME_GARDEN("Home & Garden"),
-    HEALTH("Health"),
-    BEAUTY("Beauty"),
-    SPORTS("Sports"),
-    GROCERIES("Groceries"),
-    AUTOMOTIVE("Automotive"),
-    OTHER("Other");
+    ELECTRONICS("electronics"),
+    FASHION("fashion"),
+    HOME_GARDEN("home & garden"),
+    HEALTH("health"),
+    BEAUTY("beauty"),
+    SPORTS("sports"),
+    GROCERIES("groceries"),
+    AUTOMOTIVE("automotive"),
+    OTHER("other");
 
     private final String label;
 
