@@ -3,7 +3,6 @@ package pl.wiktorgruszczynski.backend.product;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pl.wiktorgruszczynski.backend.product.dto.ProductRequest;
 import pl.wiktorgruszczynski.backend.product.dto.ProductResponse;
@@ -19,7 +18,6 @@ public class ProductController {
     private final ProductService productService;
 
     @PostMapping
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ProductResponse> createProduct(
             @Valid @RequestBody ProductRequest productRequest
     ) {
@@ -54,7 +52,6 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ProductResponse> updateProduct(
             @PathVariable("id") UUID id,
             @Valid @RequestBody ProductRequest request
@@ -65,7 +62,6 @@ public class ProductController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> deleteProduct(
             @PathVariable UUID id
     ) {

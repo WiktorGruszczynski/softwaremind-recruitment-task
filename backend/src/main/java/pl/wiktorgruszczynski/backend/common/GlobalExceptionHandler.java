@@ -3,7 +3,6 @@ package pl.wiktorgruszczynski.backend.common;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -14,6 +13,8 @@ import org.springframework.web.servlet.resource.NoResourceFoundException;
 import pl.wiktorgruszczynski.backend.common.dto.ErrorResponse;
 import pl.wiktorgruszczynski.backend.common.exception.EntityNotFoundException;
 import pl.wiktorgruszczynski.backend.common.exception.UserAlreadyExistsException;
+
+import java.util.stream.Collectors;
 
 @RestControllerAdvice
 @Slf4j
@@ -63,11 +64,19 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> handleValidationExceptions(MethodArgumentNotValidException e) {
-        return createResponse(HttpStatus.BAD_REQUEST, "Invalid parameters");
+        String message = e.getBindingResult()
+                .getFieldErrors()
+                .stream()
+                .map(error -> error.getField() + ": " + error.getDefaultMessage())
+                .collect(
+                        Collectors.joining(", ")
+                );
+        return createResponse(HttpStatus.BAD_REQUEST, message);
     }
 
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public ResponseEntity<ErrorResponse> handleTypeMismatch(MethodArgumentTypeMismatchException e) {
-        return createResponse(HttpStatus.BAD_REQUEST, "Argument type mismatch");
+        String message = String.format("Invalid parameter type: %s", e.getRequiredType());
+        return createResponse(HttpStatus.BAD_REQUEST, message);
     }
 }

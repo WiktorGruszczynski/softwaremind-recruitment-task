@@ -12,7 +12,8 @@ public record ProductRequest(
         @NotBlank(message = "Name is required")
         String name,
 
-        @Size(max = 512, message = "Description is too long")
+        @Size(min = 16, max = 512, message = "Description must be between 16 and 512 characters")
+        @NotBlank(message = "Description is required")
         String description,
 
         @NotNull(message = "Price is required")
