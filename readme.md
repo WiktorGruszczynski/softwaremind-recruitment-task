@@ -1,6 +1,6 @@
 # Product Management System
 
-This project is a comprehensive web application for managing a product catalog, developed as a recruitment task. It features a robust Spring Boot backend, a reactive Angular frontend, and a scalable Cassandra database.
+This project is a web application for managing a product catalog, developed as a recruitment task. It features a Spring Boot backend, an Angular frontend, and a Cassandra database.
 
 ## 1. Tech Stack
 
@@ -60,8 +60,7 @@ To build and run this application, you must have **Docker** and **Docker Compose
    The application requires administrative credentials for the initial setup. You can configure these using the following methods:
    
    * **`.env` File (Recommended):** Create a `.env` file in the root directory and define the variables there. This is the most secure method to keep sensitive data out of your version control system.
-   * **`compose.yml` File:** You can manually set these values directly in the `environment` section of the `compose.yml` file. However, **this is not recommended** for security reasons.
-   
+
    ---
    
    ### Configuration Variables
@@ -73,7 +72,7 @@ To build and run this application, you must have **Docker** and **Docker Compose
    
 
 3.  **Launch via Docker Compose**:
-    Run the following command to build and start the database, backend, and frontend services simultaneously:
+    Run the following command to build and start the database, backend, and frontend services:
     ```bash
     docker compose up --build
     ```
