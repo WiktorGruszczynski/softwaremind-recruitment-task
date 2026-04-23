@@ -63,6 +63,10 @@ public class SecurityConfig {
                         // allow for login and register
                         .requestMatchers("/auth/**").permitAll()
 
+                        // for recruitment purpose, make swagger public
+                        .requestMatchers("/v3/api-docs/**").permitAll()
+                        .requestMatchers("/swagger-ui/**").permitAll()
+
                         // only admin can modify products
                         .requestMatchers(HttpMethod.POST, "/products/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/products/**").hasRole("ADMIN")
